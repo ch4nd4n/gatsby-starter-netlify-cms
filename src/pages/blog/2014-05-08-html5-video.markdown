@@ -1,0 +1,10 @@
+---
+templateKey: blog-post
+title: "HTML5 Video"
+date: 2014-05-08 01:46
+comments: true
+tags: 
+    - html5 
+---
+
+Added an [article on company blog](http://liftoffllc.github.io/html5/video/2014/03/17/html5-video.html) on HTML5 Video using VideoJS. The post is about learnings around videojs.

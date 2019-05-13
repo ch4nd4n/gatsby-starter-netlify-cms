@@ -77,11 +77,31 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   fmImagesToRelative(node) // convert image paths for gatsby images
 
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
+    const value = createFilePath({ node, getNode, basePath: `pages` })
+    // console.log('value:', value)
+    if (value && value.includes('/blog')){
+      BLOG_POST_SLUG_REGEX = /^\/blog\/([\d]{4})-([\d]{2})-([\d]{2})-(.+)\/$/
+      const match = BLOG_POST_SLUG_REGEX.exec(value)
+      const year = match[1]
+      const month = match[2]
+      const day = match[3]
+      const filename = match[4]
+
+      const slug = `/blog/${year}/${month}/${day}/${filename}/`
+      // console.log('slug:', slug);
+      createNodeField({
+        name: `slug`,
+        node,
+        value: slug,
+      })
+    } else {
+      console.log('slug-original:', value);
+      createNodeField({
+        name: `slug`,
+        node,
+        value,
+      })
+    }
+    
   }
 }
